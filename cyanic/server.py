@@ -1,12 +1,20 @@
 from flask import Flask
+import logging
 
+logger = logging.getLogger('app')
 
 app = Flask(__name__)
 app.config.from_object('config')
-#
-# app.config.from_pyfile(app.config['BASE_DIR']+'/instance/config.py')
 
-print(app.config['DEBUG'])
+
+# @app.before_request
+# def before_request():
+#     g.db = connect_db()
+#
+#
+# @app.teardown_request
+# def teardown_request(exception):
+#     g.db.close()
 
 
 @app.route('/')
@@ -19,4 +27,7 @@ def about():
     return 'aaa!'
 
 if __name__ == '__main__':
-    app.run(debug=app.config['DEBUG'], )
+    try:
+        app.run(debug=app.debug)
+    except Exception as e:
+        logger.exception(e)
