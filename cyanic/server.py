@@ -1,11 +1,12 @@
 from flask import Flask
 import logging
-
+from cyanic.user.api import user_bp
 logger = logging.getLogger('app')
 
 app = Flask(__name__)
 app.config.from_object('config')
 
+app.register_blueprint(user_bp, url_prefix='/user')
 
 # @app.before_request
 # def before_request():
