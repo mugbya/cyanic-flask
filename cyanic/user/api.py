@@ -1,8 +1,6 @@
-from flask import Blueprint
+from flask import Blueprint, make_response
 
-# from cyanic.celery_app.tasks import add
-# from cyanic.celery_app.main import add
-# from cyanic.celery_demo import add
+
 from cyanic.user.tasks import add
 import json
 
@@ -12,14 +10,18 @@ user_bp = Blueprint('user', __name__)
 @user_bp.route('/')
 def index():
     '''
-
+    response 写成如此模样，只有是为了swagger 在线访问跨域
     :return:
     '''
     res = add.delay(4, 4)
-    return json.dumps({'task_id': res.id})
+    response = make_response(json.dumps({'task_id': res.id}))
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, DELETE, PUT, PATCH, OPTIONS'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type, api_key, Authorization'
+    return response
 
 
-@user_bp.route('/<task_id>')
+@user_bp.route('/<task_id>/')
 def get_result_by_task_id(task_id):
     '''
 
@@ -31,4 +33,8 @@ def get_result_by_task_id(task_id):
         'state': task.state,
         'result': task.result
     }
-    return json.dumps(res)
+    response = make_response(json.dumps(res))
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, DELETE, PUT, PATCH, OPTIONS'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type, api_key, Authorization'
+    return response

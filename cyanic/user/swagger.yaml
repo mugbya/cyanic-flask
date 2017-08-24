@@ -12,7 +12,7 @@ basePath: "/"
 schemes:
 - "http"
 paths:
-  /user:
+  /user/:
     get:
       summary: "do some things"
       description: "Returns a task_id"
@@ -20,11 +20,33 @@ paths:
         200:
           description: "A task_id"
           schema:
-#            required:
-#              - task_id
+            required:
+              - task_id
             properties:
               task_id:
-                type: string
+                type: "string"
+        400:
+          description: "error "
+
+  /user/{task_id}/:
+    get:
+      summary: "get result by task_id"
+      description: "Returns result by task_id"
+      parameters:
+        - name: task_id
+          in: path
+          required: true
+          description: task id
+          type: string
+      responses:
+        200:
+          description: "task's result"
+          schema:
+            properties:
+              result:
+                type: "string"
+              state:
+                type: "integer"
         400:
           description: "error "
 
