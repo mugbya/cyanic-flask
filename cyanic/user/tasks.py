@@ -1,5 +1,6 @@
-from celery_app.main import app
+# from celery_app.main import app
 from celery import task
+
 
 # @app.task
 @task
