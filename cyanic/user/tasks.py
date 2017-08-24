@@ -1,8 +1,7 @@
 # from celery_app.main import app
-from celery import task
+from cyanic.celery_work import app
 
 
-# @app.task
-@task
+@app.task
 def add(x, y):
     return x + y

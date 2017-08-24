@@ -1,0 +1,31 @@
+swagger: "2.0"
+info:
+  description: "This is a sample example"
+  version: "0.0.1"
+  title: "flask and celery"
+  termsOfService: "http://localhost"
+  contact:
+    email: "mugbya@gmail.com"
+host: "localhost:5000"
+basePath: "/"
+
+schemes:
+- "http"
+paths:
+  /user:
+    get:
+      summary: "do some things"
+      description: "Returns a task_id"
+      responses:
+        200:
+          description: "A task_id"
+          schema:
+#            required:
+#              - task_id
+            properties:
+              task_id:
+                type: string
+        400:
+          description: "error "
+
+
