@@ -1,4 +1,4 @@
-from cyanic.celery_work import app
+from cyanic import app
 
 
 @app.task

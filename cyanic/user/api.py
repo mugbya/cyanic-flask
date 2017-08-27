@@ -14,6 +14,7 @@ def index():
     :return:
     '''
     res = add.delay(4, 4)
+    res.backend  # <celery.backends.redis.RedisBackend object at 0x105aac3c8>
     response = make_response(json.dumps({'task_id': res.id}))
     response.headers['Access-Control-Allow-Origin'] = '*'
     response.headers['Access-Control-Allow-Methods'] = 'GET, POST, DELETE, PUT, PATCH, OPTIONS'
